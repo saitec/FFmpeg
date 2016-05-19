@@ -1,49 +1,18 @@
-FFmpeg README
-=============
+# Transform
 
-FFmpeg is a collection of libraries and tools to process multimedia content
-such as audio, video, subtitles and related metadata.
+Transform is a video filter that transforms 360 video in equirectangular projection into a cubemap projection
 
-## Libraries
+## Building
 
-* `libavcodec` provides implementation of a wider range of codecs.
-* `libavformat` implements streaming protocols, container formats and basic I/O access.
-* `libavutil` includes hashers, decompressors and miscellaneous utility functions.
-* `libavfilter` provides a mean to alter decoded Audio and Video through chain of filters.
-* `libavdevice` provides an abstraction to access capture and playback devices.
-* `libswresample` implements audio mixing and resampling routines.
-* `libswscale` implements color conversion and scaling routines.
+Transform is implemented as an ffmpeg video filter. To build Transform, follow these steps:
 
-## Tools
+1. Checkout the source for ffmpeg
+2. Copy `vf_transform.c` to the libavfilter subdirectory in ffmpeg source
+3. Edit `libavfilter/allfilters.c` and register the filter by adding the line: `REGISTER_FILTER(TRANSFORM, transform, vf);` in the video filter registration section
+4. Edit `libavfilter/Makefile` and add the filter to adding the line: `OBJS-$(CONFIG_TRANSFORM_FILTER) += vf_transform.o` in the filter section
+5. Configure and build ffmpeg as usual
 
-* [ffmpeg](https://ffmpeg.org/ffmpeg.html) is a command line toolbox to
-  manipulate, convert and stream multimedia content.
-* [ffplay](https://ffmpeg.org/ffplay.html) is a minimalistic multimedia player.
-* [ffprobe](https://ffmpeg.org/ffprobe.html) is a simple analysis tool to inspect
-  multimedia content.
-* [ffserver](https://ffmpeg.org/ffserver.html) is a multimedia streaming server
-  for live broadcasts.
-* Additional small tools such as `aviocat`, `ismindex` and `qt-faststart`.
+## Running
 
-## Documentation
-
-The offline documentation is available in the **doc/** directory.
-
-The online documentation is available in the main [website](https://ffmpeg.org)
-and in the [wiki](https://trac.ffmpeg.org).
-
-### Examples
-
-Coding examples are available in the **doc/examples** directory.
-
-## License
-
-FFmpeg codebase is mainly LGPL-licensed with optional components licensed under
-GPL. Please refer to the LICENSE file for detailed information.
-
-## Contributing
-
-Patches should be submitted to the ffmpeg-devel mailing list using
-`git format-patch` or `git send-email`. Github pull requests should be
-avoided because they are not part of our review process. Few developers
-follow pull requests so they will likely be ignored.
+Check out the options for the filter by running `ffmpeg -h filter=transform`
+A typical execution would be something like `ffmpeg -i input.mp4 -vf transform=input_stereo_format=MONO:w_subdivisons=4:h_subdivisons=4:max_cube_edge_length=512`
