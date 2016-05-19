@@ -14,10 +14,11 @@ Transform is implemented as an ffmpeg video filter. To build Transform, follow t
 
 ## Results 
 The equirectangular video is a 360 video that is laid out flat as below:
-![ScreenShot](http://imgur.com/21WobIy)
+![Alt Text](http://i.imgur.com/21WobIy.png?1)
+
 
 The Equirectangular to Cubemap filter results in this: 
-![ScreenShot](http://imgur.com/9HbcIgz)
+![Alt Text](http://i.imgur.com/9HbcIgz.png?1)
 
 ## Running
 
