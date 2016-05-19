@@ -12,6 +12,13 @@ Transform is implemented as an ffmpeg video filter. To build Transform, follow t
 4. Edit `libavfilter/Makefile` and add the filter to adding the line: `OBJS-$(CONFIG_TRANSFORM_FILTER) += vf_transform.o` in the filter section
 5. Configure and build ffmpeg as usual
 
+## Results 
+The equirectangular video is a 360 video that is laid out flat as below:
+![ScreenShot](http://imgur.com/21WobIy)
+
+The Equirectangular to Cubemap filter results in this: 
+![ScreenShot](http://imgur.com/9HbcIgz)
+
 ## Running
 
 Check out the options for the filter by running `ffmpeg -h filter=transform`
